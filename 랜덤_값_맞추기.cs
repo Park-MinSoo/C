@@ -13,7 +13,8 @@ namespace 랜덤_값_맞추기
             Random rand = new Random();
             int rvalue = rand.Next(900) + 100; //랜덤 값 설정
             int num = 0;
-            while (true)    // 반복(참일때)
+            int cnt = 0;
+            while (cnt < 10)    // 반복(참일때)
             {
                 Console.Write("입력:");   
                 num = int.Parse(Console.ReadLine());    // 입력을 int에 정수형으로 변환하여 담음
@@ -30,6 +31,15 @@ namespace 랜덤_값_맞추기
                     Console.WriteLine("정답 입니다.");
                     break;  //끝
                 }
+                cnt++;
+            }
+            if (cnt==10)
+            {
+                Console.WriteLine("10번 틀리셨습니다. 다음 기회에~");
+            }
+            else
+            {
+                Console.WriteLine("축하합니다!! {0}번 만에 맞췄습니다~~",cnt);
             }
         }
     }
