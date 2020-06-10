@@ -1,5 +1,5 @@
 ﻿/*                                                                                                    https://ehpub.co.kr
-                                                              반도체 장비 및 제어시스템 개발자 양성과정
+반도체 장비 및 제어시스템 개발자 양성과정
 전체 공간 사용
  */
 using System;
@@ -49,7 +49,7 @@ namespace BookManagerV02
             int i = 0;
             for(i=0;i<max;i++)
             {
-                if(bnums[i]!=0)
+                if(bnums[i]==0)
                 {
                     break;
                 }
