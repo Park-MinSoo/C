@@ -37,3 +37,10 @@
 솔루션 - > 추가 -> 컨텍스트 메뉴 -> 새 프로젝트 (NameSpaceLAB)
 
 + 여러개의 프로젝트가 있을시 시작 프로젝트로 설정을 해주어야 BOLD 처리되며 활성화된다.
+
+
+
+## [ 네이버 오픈 API ]
+
+- Client ID : uOJwxtLTcpZbonEZPwFs
+- Client Secret : sZWgxCQyLL
