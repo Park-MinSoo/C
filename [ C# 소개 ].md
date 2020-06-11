@@ -32,6 +32,14 @@
 
 
 
+- Overloading -> 중복 정의
+
+  
+
+- Override -> 재정의
+
+
+
 ## [ 간단 실습 ]
 
 솔루션 - > 추가 -> 컨텍스트 메뉴 -> 새 프로젝트 (NameSpaceLAB)
@@ -44,3 +52,8 @@
 
 - Client ID : uOJwxtLTcpZbonEZPwFs
 - Client Secret : sZWgxCQyLL
+
+
+
+- 네이버 책 검색 URI
+- https://openapi.naver.com/v1/search/book.xml?query=csharp
