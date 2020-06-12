@@ -1,18 +1,24 @@
-﻿namespace 도형_실습
-{
-    internal class Line : Diagram
-    {
-        private int x1;
-        private int y1;
-        private int x2;
-        private int y2;
+﻿using System;
 
+namespace 도형_실습
+{
+    public class Line : Diagram
+    {
+        Point p1, p2;
         public Line(int x1, int y1, int x2, int y2)
         {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
+            p1 = new Point(x1, y1);
+            p2 = new Point(x2, y2);
+        }
+
+        public override void Draw()
+        {
+            Console.WriteLine("<{0}> Line", ID);
+            Console.Write("\t");
+            p1.Draw();
+            Console.WriteLine("<{0}> Line", ID);
+            Console.Write("\t");
+            p2.Draw();
         }
     }
 }

@@ -6,13 +6,28 @@ using System.Threading.Tasks;
 
 namespace 도형_실습
 {
-    class Diagram
+    public abstract class Diagram
     {
-        public int ID { get; internal set; }
-
-        internal void Draw()
+        readonly int id = 0;
+        static int lastid;
+        public int ID
         {
-            throw new NotImplementedException();
+            get
+            {
+                return id;
+            }
+        }
+        public Diagram()
+        {
+            lastid++;
+            id = lastid;
+        }
+
+        public abstract void Draw();
+        internal virtual int GetID()
+        {
+
+            return id;
         }
     }
 }
