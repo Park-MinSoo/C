@@ -11,7 +11,7 @@ namespace 도형_실습
             p2 = new Point(x2, y2);
         }
 
-        public override void Draw()
+        public override void Draw() // Diagram에서 추상적이였던 Draw 메서드를 Line 클래스에 맞게 오버라이딩 하여 정의해준다.
         {
             Console.WriteLine("<{0}> Line", ID);
             Console.Write("\t");

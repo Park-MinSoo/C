@@ -13,7 +13,7 @@ namespace 도형_실습
     }
     public class DiagramDraw
     {
-        Dictionary<int, Diagram> diadic = new Dictionary<int, Diagram>();
+        Dictionary<int, Diagram> diadic = new Dictionary<int, Diagram>();   //Dictionary 생성
         private Diagram diagram;
 
         public static DiagramDraw Sigleton { get; private set; }
@@ -57,7 +57,7 @@ namespace 도형_실습
         {
             diagram.Draw();
                 IGetArea iga = diagram as IGetArea;
-                if (iga != null)
+                if (iga != null)    // 선이나, 점은 면적이 존재하지 않기에 Rectangle 타입만을 걸러내 주는 것이다.
                 { 
                     int area = iga.GetArea();
                     Console.WriteLine("면적:{0}", area);
@@ -88,7 +88,8 @@ namespace 도형_실습
             int.TryParse(Console.ReadLine(), out id);
             if(diadic.ContainsKey(id))
             {
-                diadic.Remove(id);
+                diadic.Remove(id); 
+                //id를 삭제해 줌으로써 dictionary에 담겨 있는 해당 diagram을 같이 삭제하는 것.
                 //Diagram diagram = diadic[id];
             }
             else
@@ -107,9 +108,17 @@ namespace 도형_실습
                 case DiagramType.DT_POINT: diagram = MakePoint(); break;
                 case DiagramType.DT_RECTANGLE: diagram = MakeRectangle(); break;
                 default: Console.WriteLine("잘못 선택하였습니다."); return;
+
+         // 1. dt라는 변수에 SelectDiagramType 메서드를 수행하고 사용자가 선택한 DiagramType이 dt에 담김.
+         // 2. switch문을 통하여 선택된 dt에 해당하는 DiagramType(DT_LINE or DT_POINT or DT_RECTANGLE)으로
+         //  MakeLine, MakePoint, MakeRectangle 등 해당 메서드의 포멧으로 생성된 return값이 diagram에 담김. 
+
             }
             diadic[diagram.ID] = diagram;
-    }
+         // 담긴 diagram 정보를 ID값과 함께 diadic이라는 (앞단에서 정의한) dictionary에 보관을 해준다.
+         // 이는 후에 remove 영역에서 id값만 가지고 쉽게 diagram을 지워주는 역할을 수행함.
+         // 또 추가적으로 [F1:추가] 기능을 수행 해도 누적되어 diagram이 ID값과 함께 diadic에 저장되는 것.
+        }
 
         private Diagram MakeRectangle()
         {
@@ -175,9 +184,11 @@ namespace 도형_실습
             int.TryParse(Console.ReadLine(), out dt);   //사용자로 부터 정수를 입력받음.
             if((dt>0)&&(dt<=(int)DiagramType.DT_MAX))
             {
-                return (DiagramType)dt;
+                return (DiagramType)dt; 
+                // ReadLine으로 사용자가 입력하여 선택한 번호에 해당하는 DiagramType을 return 시켜준다.
             }
-            return DiagramType.DT_NONE;
+            return DiagramType.DT_NONE; 
+            // 이 구문에는 else가 빠져 있는 것이다. 즉, if문 조건에 해당 안되는 것을 골랐을 때 DiagramType은 NONE으로 return 시키라는 뜻.
         }
 
 
