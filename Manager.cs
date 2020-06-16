@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace 대리자_소개
 {
+    delegate void MyDele2();
+
     class Manager
     {
         public event MyDele2 dele;
