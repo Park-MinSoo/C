@@ -54,8 +54,8 @@
 
 ## [ 네이버 오픈 API ]
 
-- Client ID : uOJwxtLTcpZbonEZPwFs
-- Client Secret : sZWgxCQyLL
+- Client ID : uOJwxtLTcpZbonEZPwFs	/	nr8oUuMRWTszpBFGgsp7
+- Client Secret : sZWgxCQyLL                 /     7YdkJgiTPr
 
 
 
