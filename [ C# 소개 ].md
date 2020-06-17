@@ -61,3 +61,12 @@
 
 - 네이버 책 검색 URI
 - https://openapi.naver.com/v1/search/book.xml?query=csharp
+
+
+
+## [ KaKao 오픈 API ]
+
+- 네이티브 앱 키 :  eb7d178199b367449c8ee6005ccb8621
+- REST API 키 : d203f36ade8c775cc83a91056f397812
+- JavaScript 키 :  87ea4b090cc6e6505bddbf13b5c54d9c
+- Admin 키 : ef1a2ce3a79f45d12e1aa627816ba96b
