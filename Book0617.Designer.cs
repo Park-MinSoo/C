@@ -118,14 +118,16 @@
             this.columnHeader3.Text = "ISBN";
             this.columnHeader3.Width = 151;
             // 
-            // Form1
+            // Book0617
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form1";
+            this.Name = "Book0617";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Book0617_FormClosed);
+            this.Load += new System.EventHandler(this.Book0617_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

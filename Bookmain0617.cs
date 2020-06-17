@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace 도서_검색_pre0617
 {
-    static class Program
+    static class Bookmain0617
     {
         /// <summary>
         /// 해당 애플리케이션의 주 진입점입니다.
