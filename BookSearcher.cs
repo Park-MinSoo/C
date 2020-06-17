@@ -52,8 +52,25 @@ namespace 도서_검색_pre0617
 
         public static List<Book> Load()
         {
+            FileStream fs = File.OpenRead("book.csv");
+            StreamReader sr = new StreamReader(fs);
+
             List<Book> books = new List<Book>();
+            while (sr.EndOfStream == false)
+            {
+                string s = sr.ReadLine();
+                Book book = MakeBook(s);
+                books.Add(book);
+                book_dic[book.ISBN] = book;
+            }
+            sr.Close();
+            fs.Close();
             return books;
+        }
+        public static Book MakeBook(string s)
+        {
+            string[] buf = s.Split(',');
+            return new Book(buf[0], buf[1], buf[2], int.Parse(buf[3]), buf[4], buf[5], buf[6], buf[7]);
         }
 
 
