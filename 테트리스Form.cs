@@ -30,18 +30,18 @@ namespace 테트리스
 
         private void Move(int cx, int cy)
         {
-            pt.X += cx;
-            pt.Y += cy;
+            diagram.Move(cx, cy);
             Invalidate();   // 다시그려주세요
         }
 
-        const int step = 15;
-        Point pt = new Point(5, 0);
+        const int step = 30;
+        Diagram diagram = new Diagram(5, 0);
+
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Rectangle rect = new Rectangle(pt.X * step, pt.Y * step, step, step);
+            Rectangle rect = new Rectangle(diagram.X * step, diagram.Y * step, step, step);
             graphics.DrawRectangle(Pens.Red, rect);
             rect.X += 2;
             rect.Y += 2;
