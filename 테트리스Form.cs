@@ -23,9 +23,15 @@ namespace 테트리스
             {
                 case Keys.Left: Move(-1,0); break;
                 case Keys.Right: Move(1,0); break;
-                case Keys.Up: Move(0,-1); break;
+                case Keys.Up: Turn(); break;
                 case Keys.Down: Move(0,1); break;
             }
+        }
+
+        private void Turn()
+        {
+            diagram.Turn();
+            Invalidate();
         }
 
         private void Move(int cx, int cy)
@@ -41,16 +47,31 @@ namespace 테트리스
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Rectangle rect = new Rectangle(diagram.X * step, diagram.Y * step, step, step);
-            graphics.DrawRectangle(Pens.Red, rect);
-            rect.X += 2;
-            rect.Y += 2;
-            rect.Width -= 4;
-            rect.Height -= 4;
-            graphics.FillRectangle(Brushes.BlanchedAlmond, rect);
+            DrawDiagram(graphics);
+        }
 
+        private void DrawDiagram(Graphics graphics)
+        {
+            int tn = diagram.TN;
+            int x = diagram.X;
+            int y = diagram.Y;
+            for (int cy=0;cy<4;cy++)
+            {
+                for(int cx=0;cx<4;cx++)
+                {
+                    if(Diagram.bvalue[tn,cy,cx]==1)
+                    {
+                        Rectangle rect = new Rectangle((x + cx)* step, (y + cy)* step, step, step);
+                        graphics.DrawRectangle(Pens.Red, rect);
+                        rect.X += 2;
+                        rect.Y += 2;
+                        rect.Width -= 4;
+                        rect.Height -= 4;
+                        graphics.FillRectangle(Brushes.BlanchedAlmond, rect);
 
-
+                    }
+                }
+            }
         }
 
         private void tm_tm_Tick(object sender, EventArgs e)
