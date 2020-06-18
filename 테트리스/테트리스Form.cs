@@ -24,8 +24,14 @@ namespace 테트리스
                 case Keys.Left: Move(-1,0); break;
                 case Keys.Right: Move(1,0); break;
                 case Keys.Up: Turn(); break;
-                case Keys.Down: Move(0,1); break;
+                case Keys.Down: NextBlock(); break;
             }
+        }
+
+        private void NextBlock()
+        {
+            diagram.SetXY(5, 0);
+            Invalidate();
         }
 
         private void Turn()
@@ -55,11 +61,12 @@ namespace 테트리스
             int tn = diagram.TN;
             int x = diagram.X;
             int y = diagram.Y;
+            int bn = diagram.BN;
             for (int cy=0;cy<4;cy++)
             {
                 for(int cx=0;cx<4;cx++)
                 {
-                    if(Diagram.bvalue[tn,cy,cx]==1)
+                    if(Diagram.bvalue[bn,tn,cy,cx]==1)
                     {
                         Rectangle rect = new Rectangle((x + cx)* step, (y + cy)* step, step, step);
                         graphics.DrawRectangle(Pens.Red, rect);
