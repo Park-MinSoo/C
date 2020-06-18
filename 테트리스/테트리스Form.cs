@@ -42,18 +42,45 @@ namespace 테트리스
 
         private void Move(int cx, int cy)
         {
+            if (board.CheckMoveEnable(diagram, cx, cy))
+            { 
             diagram.Move(cx, cy);
             Invalidate();   // 다시그려주세요
+            }
         }
 
         const int step = 30;
         Diagram diagram = new Diagram(5, 0);
+        Board board = new Board();
 
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
             DrawDiagram(graphics);
+            DrawBoard(graphics);
+        }
+
+        private void DrawBoard(Graphics graphics)
+        {
+            board.bdvals[9, 9] = 1;
+            for (int cy = 0; board.MAX_Y < 4; cy++)
+            {
+                for (int cx = 0; board.MAX_X < 4; cx++)
+                {
+                    if (board.bdvals[cy, cx] == 1)
+                    {
+                        Rectangle rect = new Rectangle(cx* step, cy * step, step, step);
+                        graphics.DrawRectangle(Pens.Red, rect);
+                        rect.X += 2;
+                        rect.Y += 2;
+                        rect.Width -= 4;
+                        rect.Height -= 4;
+                        graphics.FillRectangle(Brushes.BlanchedAlmond, rect);
+
+                    }
+                }
+            }
         }
 
         private void DrawDiagram(Graphics graphics)
@@ -94,6 +121,10 @@ namespace 테트리스
         private void Form1_Load(object sender, EventArgs e)
         {
             lb_time.Text = DateTime.Now.ToShortTimeString();
+
+            int width = step * board.MAX_X + 18;
+            int height = step + board.MAX_Y + 32;
+            this.Size = new Size(Width, height);
         }
     }
 }
