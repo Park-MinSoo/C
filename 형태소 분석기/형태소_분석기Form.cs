@@ -37,9 +37,47 @@ namespace App1
 
         private void btn_mo_parse_Click(object sender, EventArgs e)
         {
+            OriginDirPeek();
+            while(lbox_org.Items.Count>0)
+            {
+                Parsing(lbox_org.Items[0].ToString());
+                lbox_org.Items.RemoveAt(0);
+            }
+        }
+
+        private void Parsing(string filename)
+        {
+            FileStream fs = File.OpenRead(filename);
+            StreamReader sr = new StreamReader(fs);
+            string s = sr.ReadToEnd();
+            sr.Close();
+            fs.Close();
+            string dname;
+            string fname = SplitDirFname(filename, out dname);
+            string mfname = string.Format(@"{0}\{1}", tbox_par.Text, fname);
+            File.Move(filename, mfname);
+            lbox_par.Items.Add(mfname);
+            int tot_mcnt = 0;
+            Dictionary<string, Morpheme> mor_dic = MorphemeParser.Parse(filename, s,out tot_mcnt);
+        }
+
+        private string SplitDirFname(string filename, out string dname)
+        {
+            int index = filename.LastIndexOf(@"\");
+            if(index == -1)
+            {
+                dname = "";
+                return filename;
+            }
+            dname = filename.Substring(0, index+1);
+            return filename.Substring(index + 1);
+        }
+
+        private void OriginDirPeek()
+        {
             DirectoryInfo di = new DirectoryInfo(tbox_org.Text);
             FileInfo[] fis = di.GetFiles();
-            foreach(FileInfo fi in fis)
+            foreach (FileInfo fi in fis)
             {
                 lbox_org.Items.Add(fi.FullName);
             }
