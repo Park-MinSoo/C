@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbox_id = new System.Windows.Forms.TextBox();
             this.tbox_pw = new System.Windows.Forms.TextBox();
             this.btn_join = new System.Windows.Forms.Button();
             this.btn_login = new System.Windows.Forms.Button();
+            this.btn_stop = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // tbox_id
@@ -50,9 +53,9 @@
             // 
             // btn_join
             // 
-            this.btn_join.Location = new System.Drawing.Point(27, 141);
+            this.btn_join.Location = new System.Drawing.Point(27, 135);
             this.btn_join.Name = "btn_join";
-            this.btn_join.Size = new System.Drawing.Size(100, 23);
+            this.btn_join.Size = new System.Drawing.Size(100, 29);
             this.btn_join.TabIndex = 2;
             this.btn_join.Text = "가입";
             this.btn_join.UseVisualStyleBackColor = true;
@@ -60,19 +63,35 @@
             // 
             // btn_login
             // 
-            this.btn_login.Location = new System.Drawing.Point(161, 141);
+            this.btn_login.Location = new System.Drawing.Point(147, 134);
             this.btn_login.Name = "btn_login";
-            this.btn_login.Size = new System.Drawing.Size(98, 23);
+            this.btn_login.Size = new System.Drawing.Size(112, 29);
             this.btn_login.TabIndex = 3;
             this.btn_login.Text = "로그인";
             this.btn_login.UseVisualStyleBackColor = true;
             this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
+            // 
+            // btn_stop
+            // 
+            this.btn_stop.Location = new System.Drawing.Point(282, 134);
+            this.btn_stop.Name = "btn_stop";
+            this.btn_stop.Size = new System.Drawing.Size(108, 29);
+            this.btn_stop.TabIndex = 4;
+            this.btn_stop.Text = "타이머 정지";
+            this.btn_stop.UseVisualStyleBackColor = true;
+            this.btn_stop.Click += new System.EventHandler(this.btn_stop_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // 인증_클라이언트_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_stop);
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.btn_join);
             this.Controls.Add(this.tbox_pw);
@@ -91,6 +110,8 @@
         private System.Windows.Forms.TextBox tbox_pw;
         private System.Windows.Forms.Button btn_join;
         private System.Windows.Forms.Button btn_login;
+        private System.Windows.Forms.Button btn_stop;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EHAAALib
@@ -12,6 +13,7 @@ namespace EHAAALib
     public class EHAAA:MarshalByRefObject
     {
         DataTable mtb = new DataTable("회원");
+        Dictionary<string, DateTime> dt_dic = new Dictionary<string, DateTime>();
         public EHAAA()
         {
             Initialize();
@@ -28,8 +30,58 @@ namespace EHAAALib
 
         const string sfname = "member.xsl"; //스키마 파일
         const string dfname = "member.xml"; // 데이터 파일
+
+        Timer timer = null;
+
+        void CheckKeepAlive(object state)
+        {
+            Console.WriteLine(".");
+
+            List<string> dlist = new List<string>();
+            foreach(KeyValuePair<string,DateTime> sd in dt_dic)
+            {
+                TimeSpan ts = DateTime.Now - sd.Value;
+                if(ts.TotalSeconds > 9) //9초 동안 응답이 없으면
+                {
+                    Logout(sd.Key); // 강제로 로그아웃 시킨다.
+                    dlist.Add(sd.Key);
+                    //dt_dic.Remove(sd); 를 해버리면 foreach 구문에서는 원소의 값의 변경만 가능하지 추가나 제거하면 예외처리가 발생하게된다.
+                }
+            }
+
+            foreach(string id in dlist)
+            {
+                dt_dic.Remove(id);
+            }
+        }
+
+        public void KeepAlive(string id)
+        {
+            try     // 블랙해커가 만일 로그인되지 않은 아이디를 KeepAlive 보냈을 경우를 막기 위해 try-catch를 사용하는것이다.
+            {
+                dt_dic[id] = DateTime.Now;
+            }
+            catch { }   // 이때 catch할때는 할일이 없기 때문에 비어있는 것.
+        }
+
+        public void Logout(string id)
+        {
+            try
+            {
+                DataRow dr = mtb.Rows.Find(id);
+                dr["status"] = 0;
+            }
+            catch
+            {
+
+            }
+        }
+
         private void Initialize()
         {
+            timer = new Timer(CheckKeepAlive);
+            timer.Change(0, 3000);  // 0초 부터 발생하여, 3초 주기로 준다.
+
             if (File.Exists(sfname))
             {
                 mtb.ReadXmlSchema(sfname);
@@ -106,6 +158,7 @@ namespace EHAAALib
                 if((int)dr["status"]==0)
                 {
                    dr["status"] = 1;
+                    dt_dic[id] = DateTime.Now;  // 로그인할때 현재 시각 정보를 넣어줌.
                    return 0;    // 로그인 성공
                 }
                 return 2;   // 이미 로그인 중

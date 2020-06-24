@@ -44,7 +44,7 @@ namespace 인증_클라이언트
             ChannelServices.RegisterChannel(hc, false);
 
         }
-
+       
         private void btn_login_Click(object sender, EventArgs e)
         {
             string id = tbox_id.Text;
@@ -55,7 +55,26 @@ namespace 인증_클라이언트
                 ) as EHAAA;
             int re = eaaa.Login(id, pw);
               MessageBox.Show(string.Format("결과 : {0}",re));
+            if(re ==0)  // 만약 로그인에 문제가 없다면~
+            {
+                timer1.Enabled = true;
+            }
             
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            string id = tbox_id.Text;
+            EHAAA eaaa = Activator.GetObject(
+                typeof(EHAAA),
+                "http://192.168.10.69:10800/AAASVC"
+                ) as EHAAA;
+            eaaa.KeepAlive(id);
+        }
+
+        private void btn_stop_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
         }
     }
 }
