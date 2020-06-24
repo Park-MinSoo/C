@@ -13,9 +13,9 @@ using EHAAALib;
 
 namespace 인증_클라이언트
 {
-    public partial class Form1 : Form
+    public partial class 인증_클라이언트_Form : Form
     {
-        public Form1()
+        public 인증_클라이언트_Form()
         {
             InitializeComponent();
         }
@@ -43,6 +43,19 @@ namespace 인증_클라이언트
             HttpChannel hc = new HttpChannel();
             ChannelServices.RegisterChannel(hc, false);
 
+        }
+
+        private void btn_login_Click(object sender, EventArgs e)
+        {
+            string id = tbox_id.Text;
+            string pw = tbox_pw.Text;
+            EHAAA eaaa = Activator.GetObject(
+                typeof(EHAAA),
+                "http://192.168.10.69:10800/AAASVC"
+                ) as EHAAA;
+            int re = eaaa.Login(id, pw);
+              MessageBox.Show(string.Format("결과 : {0}",re));
+            
         }
     }
 }

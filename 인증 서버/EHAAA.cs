@@ -19,6 +19,10 @@ namespace EHAAALib
 
         ~EHAAA()    // 소멸자 (가비지 컬랙터가 수행한다.)
         {
+            foreach(DataRow dr in mtb.Rows)
+            {
+                dr["status"] = 0;   // 종료하는 때에 로그인 상태를 전부 0 으로 만들어준다.
+            }
             mtb.WriteXml(dfname); // 개체가 소멸될때 해야 할 일
         }
 
@@ -67,6 +71,9 @@ namespace EHAAALib
             DataColumn dc_bp = new DataColumn("bp", typeof(int));
             mtb.Columns.Add(dc_bp);
 
+            DataColumn[] pkeys = new DataColumn[] { dc_id };
+            mtb.PrimaryKey = pkeys;
+
             mtb.WriteXmlSchema(sfname);
         }
 
@@ -84,6 +91,29 @@ namespace EHAAALib
             {
                 Console.WriteLine(ex.Message);
                 return false;
+            }
+        }
+
+        public int Login(string id, string pw)
+        {
+            try
+            { 
+                DataRow dr = mtb.Rows.Find(id);
+                if(dr==null)
+                {
+                    return 1;   // 미가입 ID
+                }
+                if((int)dr["status"]==0)
+                {
+                   dr["status"] = 1;
+                   return 0;    // 로그인 성공
+                }
+                return 2;   // 이미 로그인 중
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 3;   // 예외 발생
             }
         }
     }
