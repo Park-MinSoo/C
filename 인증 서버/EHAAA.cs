@@ -60,11 +60,11 @@ namespace EHAAALib
             mtb.Columns.Add(dc_sp);
 
             // 파일 포트
-            DataColumn dc_fp = new DataColumn("sp", typeof(int));
+            DataColumn dc_fp = new DataColumn("fp", typeof(int));
             mtb.Columns.Add(dc_fp);
 
             //콜백 포트
-            DataColumn dc_bp = new DataColumn("sp", typeof(int));
+            DataColumn dc_bp = new DataColumn("bp", typeof(int));
             mtb.Columns.Add(dc_bp);
 
             mtb.WriteXmlSchema(sfname);
