@@ -48,28 +48,43 @@ namespace EHAAALib
             mtb.Columns.Add(dc_id);
             DataColumn dc_pw = new DataColumn("pw", typeof(string));
             dc_pw.AllowDBNull = false;
-            mtb.Rows.Add(dc_pw);
+            mtb.Columns.Add(dc_pw);
             DataColumn dc_status = new DataColumn("status", typeof(int));
             dc_status.DefaultValue = 0;
-            mtb.Rows.Add(dc_status);
+            mtb.Columns.Add(dc_status);
             DataColumn dc_ip = new DataColumn("ip", typeof(IPAddress));
-            mtb.Rows.Add(dc_ip);
+            mtb.Columns.Add(dc_ip);
 
             // 숏메세지 포트
             DataColumn dc_sp = new DataColumn("sp", typeof(int));
-            mtb.Rows.Add(dc_sp);
+            mtb.Columns.Add(dc_sp);
 
             // 파일 포트
             DataColumn dc_fp = new DataColumn("sp", typeof(int));
-            mtb.Rows.Add(dc_fp);
+            mtb.Columns.Add(dc_fp);
 
             //콜백 포트
             DataColumn dc_bp = new DataColumn("sp", typeof(int));
-            mtb.Rows.Add(dc_bp);
+            mtb.Columns.Add(dc_bp);
 
             mtb.WriteXmlSchema(sfname);
         }
 
-        
+        public bool join(string id, string pw)
+        {
+            try 
+            {
+                DataRow dr = mtb.NewRow();
+                dr["id"] = id;
+                dr["pw"] = pw;
+                mtb.Rows.Add(dr);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }
