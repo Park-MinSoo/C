@@ -1,0 +1,10 @@
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\obj\Debug\형태소_역파일_로봇.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\bin\Debug\형태소_역파일_로봇.exe.config
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\bin\Debug\형태소_역파일_로봇.exe
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\bin\Debug\형태소_역파일_로봇.pdb
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\bin\Debug\MorphemeParserLib.dll
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\bin\Debug\MorphemeParserLib.pdb
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\obj\Debug\형태소_역파일_로봇.csprojAssemblyReference.cache
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\obj\Debug\형태소_역파일_로봇.csproj.CopyComplete
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\obj\Debug\형태소_역파일_로봇.exe
+C:\Users\user\source\repos\반자동 형태소 분석기\형태소_역파일_로봇\obj\Debug\형태소_역파일_로봇.pdb

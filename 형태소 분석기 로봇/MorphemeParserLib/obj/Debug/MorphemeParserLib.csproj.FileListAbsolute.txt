@@ -1,0 +1,6 @@
+C:\Users\user\source\repos\반자동 형태소 분석기\MorphemeParserLib\obj\Debug\MorphemeParserLib.csprojAssemblyReference.cache
+C:\Users\user\source\repos\반자동 형태소 분석기\MorphemeParserLib\obj\Debug\MorphemeParserLib.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\반자동 형태소 분석기\MorphemeParserLib\bin\Debug\MorphemeParserLib.dll
+C:\Users\user\source\repos\반자동 형태소 분석기\MorphemeParserLib\bin\Debug\MorphemeParserLib.pdb
+C:\Users\user\source\repos\반자동 형태소 분석기\MorphemeParserLib\obj\Debug\MorphemeParserLib.dll
+C:\Users\user\source\repos\반자동 형태소 분석기\MorphemeParserLib\obj\Debug\MorphemeParserLib.pdb
