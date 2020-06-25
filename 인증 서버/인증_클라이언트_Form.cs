@@ -58,8 +58,22 @@ namespace 인증_클라이언트
             if(re ==0)  // 만약 로그인에 문제가 없다면~
             {
                 timer1.Enabled = true;
+                int bport = int.Parse(tbox_bport.Text);
+                eaaa.KeepAlive(id, "192.168.10.69", 10200, 10989, bport);
+                UserInfoCBServer ucbs = new UserInfoCBServer("192.168.10.69",bport);
+                ucbs.UserInfoEventHandler += Ucbs_UserInfoEventHandler;
+                if(ucbs.Start()==false)
+                {
+                    MessageBox.Show("허걱.. 예외 발생");
+                }
+
             }
             
+        }
+
+        private void Ucbs_UserInfoEventHandler(object sender, UserInfoEventArgs e)
+        {
+            lbox_frd.Items.Add(e.ID);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

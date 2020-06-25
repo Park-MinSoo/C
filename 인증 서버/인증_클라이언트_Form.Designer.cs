@@ -35,6 +35,8 @@
             this.btn_login = new System.Windows.Forms.Button();
             this.btn_stop = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tbox_bport = new System.Windows.Forms.TextBox();
+            this.lbox_frd = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // tbox_id
@@ -86,11 +88,29 @@
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tbox_bport
+            // 
+            this.tbox_bport.Location = new System.Drawing.Point(27, 219);
+            this.tbox_bport.Name = "tbox_bport";
+            this.tbox_bport.Size = new System.Drawing.Size(99, 25);
+            this.tbox_bport.TabIndex = 5;
+            // 
+            // lbox_frd
+            // 
+            this.lbox_frd.FormattingEnabled = true;
+            this.lbox_frd.ItemHeight = 15;
+            this.lbox_frd.Location = new System.Drawing.Point(437, 23);
+            this.lbox_frd.Name = "lbox_frd";
+            this.lbox_frd.Size = new System.Drawing.Size(322, 379);
+            this.lbox_frd.TabIndex = 6;
+            // 
             // 인증_클라이언트_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lbox_frd);
+            this.Controls.Add(this.tbox_bport);
             this.Controls.Add(this.btn_stop);
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.btn_join);
@@ -112,6 +132,8 @@
         private System.Windows.Forms.Button btn_login;
         private System.Windows.Forms.Button btn_stop;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox tbox_bport;
+        private System.Windows.Forms.ListBox lbox_frd;
     }
 }
 
