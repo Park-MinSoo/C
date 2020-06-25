@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,6 +64,67 @@ namespace EHAAALib
             }
             catch { }   // 이때 catch할때는 할일이 없기 때문에 비어있는 것.
         }
+
+        public void KeepAlive(string id, string ipstr, int sport, int fport, int bport)
+        {
+            try
+            {
+                dt_dic[id] = DateTime.Now;
+                DataRow dr = mtb.Rows.Find(id);
+                dr["ip"] = IPAddress.Parse(ipstr);
+                dr["sport"] = sport;
+                dr["fport"] = fport;
+                dr["bport"] = bport;
+                
+                // 현재 로그인 상태의 클라이언트에게 새로운 User로 로그인 하였음을 통보
+                foreach(string oid in dt_dic.Keys)
+                {
+                    DataRow odr = mtb.Rows.Find(id);
+                    string oip = dr["ip"].ToString();
+                    int osport = (int)dr["sport"];
+                    int ofport = (int)dr["fport"];
+                    int obport = (int)dr["bport"];
+                    SendUserInfoAsync(oid, oip, osport, ofport, obport, id, ipstr, sport, fport, bport);
+                    SendUserInfoAsync(id, ipstr, sport, fport, bport, oid, oip, osport, ofport, obport);
+                }
+
+                // 새롭게 로그인한 클라이언트에게 이미 로그인한 User 정보 통보
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void SendUserInfoAsync(string oid, string oip, int osport, int ofport, int obport, string id, string ipstr, int sport, int fport, int bport)
+        {
+            SendUserInfoDele dele = SendUserInfoAsync;
+            dele.BeginInvoke(oid, oip, osport, ofport, obport, id, ipstr, sport, fport, bport, null, null);
+        }
+        delegate void SendUserInfoDele(string oid, string oip, int osport, int ofport, int obport, string id, string ipstr, int sport, int fport, int bport);
+
+        public void SendUserInfo(string oid, string oip, int osport, int ofport, int obport, string id, string ipstr, int sport, int fport, int bport)
+        {
+            try
+            {
+                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint iep = new IPEndPoint(IPAddress.Parse(oip), obport);
+                sock.Connect(iep);
+                byte[] packet = new byte[1024];
+                MemoryStream ms = new MemoryStream(packet);
+                BinaryWriter bw = new BinaryWriter(ms);
+                bw.Write(id);
+                bw.Write(ipstr);
+                bw.Write(sport);
+                bw.Write(fport);
+                bw.Close();
+                ms.Close();
+                sock.Send(packet);
+                sock.Close();
+            }
+            catch { }
+        }
+
 
         public void Logout(string id)
         {
