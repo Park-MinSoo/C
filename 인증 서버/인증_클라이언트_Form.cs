@@ -24,10 +24,7 @@ namespace 인증_클라이언트
         {
             string id = tbox_id.Text;
             string pw = tbox_pw.Text;
-            EHAAA eaaa = Activator.GetObject(
-                typeof(EHAAA),
-                "http://192.168.10.69:10800/AAASVC"
-                ) as EHAAA;
+            EHAAA eaaa = Eaaa;
             if(eaaa.join(id,pw))
             {
                 MessageBox.Show("가입 성공");
@@ -49,10 +46,7 @@ namespace 인증_클라이언트
         {
             string id = tbox_id.Text;
             string pw = tbox_pw.Text;
-            EHAAA eaaa = Activator.GetObject(
-                typeof(EHAAA),
-                "http://192.168.10.69:10800/AAASVC"
-                ) as EHAAA;
+            EHAAA eaaa = Eaaa;
             int re = eaaa.Login(id, pw);
               MessageBox.Show(string.Format("결과 : {0}",re));
             if(re ==0)  // 만약 로그인에 문제가 없다면~
@@ -73,22 +67,44 @@ namespace 인증_클라이언트
 
         private void Ucbs_UserInfoEventHandler(object sender, UserInfoEventArgs e)
         {
-            lbox_frd.Items.Add(e.ID);
+            if (e.FPort == 0)
+            { 
+                lbox_frd.Items.Remove(e.ID);
+            }
+            else
+            { 
+                lbox_frd.Items.Add(e.ID);
+            }
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             string id = tbox_id.Text;
-            EHAAA eaaa = Activator.GetObject(
-                typeof(EHAAA),
-                "http://192.168.10.69:10800/AAASVC"
-                ) as EHAAA;
+            EHAAA eaaa = Eaaa;
             eaaa.KeepAlive(id);
         }
 
         private void btn_stop_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            string id = tbox_id.Text;
+            EHAAA eaaa = Eaaa;
+            eaaa.Logout(id);
+        }
+        EHAAA Eaaa
+        {
+            get
+            {
+                return Activator.GetObject(
+                typeof(EHAAA),
+                "http://192.168.10.69:10800/AAASVC"
+                ) as EHAAA;
+            }
         }
     }
 }
