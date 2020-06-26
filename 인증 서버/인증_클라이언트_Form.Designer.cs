@@ -37,6 +37,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tbox_bport = new System.Windows.Forms.TextBox();
             this.lbox_frd = new System.Windows.Forms.ListBox();
+            this.btn_logout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbox_id
@@ -104,11 +105,22 @@
             this.lbox_frd.Size = new System.Drawing.Size(322, 379);
             this.lbox_frd.TabIndex = 6;
             // 
+            // btn_logout
+            // 
+            this.btn_logout.Location = new System.Drawing.Point(147, 218);
+            this.btn_logout.Name = "btn_logout";
+            this.btn_logout.Size = new System.Drawing.Size(111, 25);
+            this.btn_logout.TabIndex = 7;
+            this.btn_logout.Text = "로그아웃";
+            this.btn_logout.UseVisualStyleBackColor = true;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
+            // 
             // 인증_클라이언트_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_logout);
             this.Controls.Add(this.lbox_frd);
             this.Controls.Add(this.tbox_bport);
             this.Controls.Add(this.btn_stop);
@@ -134,6 +146,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox tbox_bport;
         private System.Windows.Forms.ListBox lbox_frd;
+        private System.Windows.Forms.Button btn_logout;
     }
 }
 
