@@ -68,24 +68,28 @@ namespace EHAAALib
         public void KeepAlive(string id, string ipstr, int sport, int fport, int bport)
         {
             try
-            {
+            { 
                 dt_dic[id] = DateTime.Now;
                 DataRow dr = mtb.Rows.Find(id);
-                dr["ip"] = IPAddress.Parse(ipstr);
+                dr["ip"] = ipstr;
                 dr["sport"] = sport;
                 dr["fport"] = fport;
                 dr["bport"] = bport;
-                
+
                 // 현재 로그인 상태의 클라이언트에게 새로운 User로 로그인 하였음을 통보
-                foreach(string oid in dt_dic.Keys)
+                foreach (string oid in dt_dic.Keys)
                 {
-                    DataRow odr = mtb.Rows.Find(id);
-                    string oip = dr["ip"].ToString();
-                    int osport = (int)dr["sport"];
-                    int ofport = (int)dr["fport"];
-                    int obport = (int)dr["bport"];
-                    SendUserInfoAsync(oid, oip, osport, ofport, obport, id, ipstr, sport, fport, bport);
-                    SendUserInfoAsync(id, ipstr, sport, fport, bport, oid, oip, osport, ofport, obport);
+                    if (id != oid)
+                    {
+
+                        DataRow odr = mtb.Rows.Find(oid);
+                        string oip = odr["ip"].ToString();
+                        int osport = (int)odr["sport"];
+                        int ofport = (int)odr["fport"];
+                        int obport = (int)odr["bport"];
+                        SendUserInfoAsync(oip, obport, id, ipstr, sport, fport);
+                        SendUserInfoAsync(ipstr, bport, oid, oip, osport, ofport);
+                    }
                 }
 
                 // 새롭게 로그인한 클라이언트에게 이미 로그인한 User 정보 통보
@@ -96,19 +100,19 @@ namespace EHAAALib
             }
         }
 
-        private void SendUserInfoAsync(string oid, string oip, int osport, int ofport, int obport, string id, string ipstr, int sport, int fport, int bport)
+        private void SendUserInfoAsync(string tip, int tbport, string id, string ipstr, int sport, int fport)
         {
-            SendUserInfoDele dele = SendUserInfoAsync;
-            dele.BeginInvoke(oid, oip, osport, ofport, obport, id, ipstr, sport, fport, bport, null, null);
+            SendUserInfoDele dele = SendUserInfo;
+            dele.BeginInvoke(tip, tbport, id, ipstr, sport, fport, null, null);
         }
-        delegate void SendUserInfoDele(string oid, string oip, int osport, int ofport, int obport, string id, string ipstr, int sport, int fport, int bport);
+        delegate void SendUserInfoDele(string tip, int tbport, string id, string ipstr, int sport, int fport);
 
-        public void SendUserInfo(string oid, string oip, int osport, int ofport, int obport, string id, string ipstr, int sport, int fport, int bport)
+        public void SendUserInfo(string tip, int tbport, string id, string ipstr, int sport, int fport)
         {
             try
             {
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint iep = new IPEndPoint(IPAddress.Parse(oip), obport);
+                IPEndPoint iep = new IPEndPoint(IPAddress.Parse(tip), tbport);
                 sock.Connect(iep);
                 byte[] packet = new byte[1024];
                 MemoryStream ms = new MemoryStream(packet);
@@ -132,6 +136,18 @@ namespace EHAAALib
             {
                 DataRow dr = mtb.Rows.Find(id);
                 dr["status"] = 0;
+
+                foreach (string oid in dt_dic.Keys)
+                {
+                    if (id != oid)
+                    {
+
+                        DataRow odr = mtb.Rows.Find(oid);
+                        string oip = odr["ip"].ToString();
+                        int obport = (int)odr["bport"];
+                        SendUserInfoAsync(oip, obport, id, "", 0, 0);
+                    }
+                }
             }
             catch
             {
@@ -170,7 +186,7 @@ namespace EHAAALib
             DataColumn dc_status = new DataColumn("status", typeof(int));
             dc_status.DefaultValue = 0;
             mtb.Columns.Add(dc_status);
-            DataColumn dc_ip = new DataColumn("ip", typeof(IPAddress));
+            DataColumn dc_ip = new DataColumn("ip", typeof(string));
             mtb.Columns.Add(dc_ip);
 
             // 숏메세지 포트
@@ -219,7 +235,7 @@ namespace EHAAALib
                 }
                 if((int)dr["status"]==0)
                 {
-                   dr["status"] = 1;
+                    dr["status"] = 1;
                     dt_dic[id] = DateTime.Now;  // 로그인할때 현재 시각 정보를 넣어줌.
                    return 0;    // 로그인 성공
                 }
