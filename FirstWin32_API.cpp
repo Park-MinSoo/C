@@ -26,14 +26,17 @@ void DestroyProc(HWND hWnd)
 	PostQuitMessage(0);
 }
 
+void OnCreate(HWND hWnd)
+{
+	CreateWindow(TEXT("button"), TEXT("»Æ¿Œ"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 10, 10, 150, 24, hWnd, 0, GetModuleHandle(0), 0);
+}
+
 LRESULT CALLBACK MyProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	switch (iMessage)
 	{
-	case WM_DESTROY: DestroyProc(hWnd);
-		break;
-	default:
-		break;
+	case WM_CREATE: OnCreate(hWnd); return 0;
+	case WM_DESTROY: DestroyProc(hWnd); return 0;
 	}
 	return DefDlgProc(hWnd, iMessage, wParam, lParam);
 }
