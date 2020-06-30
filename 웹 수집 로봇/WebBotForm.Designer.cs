@@ -1,6 +1,6 @@
 ﻿namespace 웹_수집_로봇
 {
-    partial class Form1
+    partial class WebBotForm
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -35,8 +35,8 @@
             this.btn_start = new System.Windows.Forms.Button();
             this.btn_stop = new System.Windows.Forms.Button();
             this.lview_candi = new System.Windows.Forms.ListView();
-            this.사이트주소 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Depth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -89,8 +89,8 @@
             // lview_candi
             // 
             this.lview_candi.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.사이트주소,
-            this.Depth});
+            this.columnHeader1,
+            this.columnHeader2});
             this.lview_candi.HideSelection = false;
             this.lview_candi.Location = new System.Drawing.Point(29, 65);
             this.lview_candi.Name = "lview_candi";
@@ -99,22 +99,23 @@
             this.lview_candi.UseCompatibleStateImageBehavior = false;
             this.lview_candi.View = System.Windows.Forms.View.Details;
             // 
-            // 사이트주소
+            // columnHeader1
             // 
-            this.사이트주소.Text = "사이트 주소";
-            this.사이트주소.Width = 420;
+            this.columnHeader1.Tag = "";
+            this.columnHeader1.Text = "사이트 주소";
+            this.columnHeader1.Width = 420;
             // 
-            // Depth
+            // columnHeader2
             // 
-            this.Depth.Text = "Depth";
-            this.Depth.Width = 242;
+            this.columnHeader2.Text = "Depth";
+            this.columnHeader2.Width = 242;
             // 
             // timer1
             // 
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Form1
+            // WebBotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -125,7 +126,7 @@
             this.Controls.Add(this.btn_add);
             this.Controls.Add(this.tbox_url);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "WebBotForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,9 +141,9 @@
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.Button btn_stop;
         private System.Windows.Forms.ListView lview_candi;
-        private System.Windows.Forms.ColumnHeader 사이트주소;
-        private System.Windows.Forms.ColumnHeader Depth;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 
