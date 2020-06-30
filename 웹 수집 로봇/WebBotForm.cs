@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,13 +32,7 @@ namespace 웹_수집_로봇
             {
                 return;
             }
-            string url = candi.Url;
-            int index = url.IndexOf("#");
-            if(index != -1)
-            {
-                url = url.Substring(0, index);
-                candi = new Candidate(url, candi.Depth);
-            }
+             ConvertUrl(ref candi);
             if(pdic.ContainsKey(candi.Url) || curls.Contains(candi.Url))
             {
                 return;
@@ -47,6 +42,25 @@ namespace 웹_수집_로봇
             lview_candi.Items.Add(lvi);
             lvi.Tag = candi;
             curls.Add(candi.Url);
+        }
+
+        private void ConvertUrl(ref Candidate candi)
+        {
+            // # 뒤의 내용들을 제거
+            string url = candi.Url;
+            int index = url.IndexOf("#");
+            if (index != -1)
+            {
+                url = url.Substring(0, index);
+                candi = new Candidate(url, candi.Depth);
+            }
+            // ? 뒤의 내용들을 제거
+            index = url.IndexOf("?");
+            if (index != -1)
+            {
+                url = url.Substring(0, index);
+                candi = new Candidate(url, candi.Depth);
+            }
         }
 
         private bool Filter(string url)
