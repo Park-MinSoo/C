@@ -24,6 +24,7 @@ namespace 웹_수집_로봇
         }
 
         Dictionary<string, PostedUrl> pdic = new Dictionary<string, PostedUrl>();
+        List<string> curls = new List<string>();
         private void AddCandidate(Candidate candi)
         {
             if(Filter(candi.Url))
@@ -37,7 +38,7 @@ namespace 웹_수집_로봇
                 url = url.Substring(0, index);
                 candi = new Candidate(url, candi.Depth);
             }
-            if(pdic.ContainsKey(candi.Url))
+            if(pdic.ContainsKey(candi.Url) || curls.Contains(candi.Url))
             {
                 return;
             }
@@ -45,11 +46,12 @@ namespace 웹_수집_로봇
             ListViewItem lvi = new ListViewItem(sitems);
             lview_candi.Items.Add(lvi);
             lvi.Tag = candi;
+            curls.Add(candi.Url);
         }
 
         private bool Filter(string url)
         {
-            return url.EndsWith(".zip") || url.EndsWith(".hwp");
+            return url.EndsWith(".zip") || url.EndsWith(".hwp") || url.StartsWith("java");
         }
 
         private void btn_start_Click(object sender, EventArgs e)
