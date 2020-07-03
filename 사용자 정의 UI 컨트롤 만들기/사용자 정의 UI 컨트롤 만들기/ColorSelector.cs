@@ -47,5 +47,12 @@ namespace ColorSelectorLib
         {
             ChangeColor();
         }
+        public void SetColor(int r, int g, int b)
+        {
+            tb_red.Value = r;
+            tb_green.Value = g;
+            tb_blue.Value = b;
+            ChangeColor();
+        }
     }
 }
