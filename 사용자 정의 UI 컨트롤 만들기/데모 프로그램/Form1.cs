@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ColorSelectorLib;
 
 namespace 데모_프로그램
 {
@@ -24,6 +25,18 @@ namespace 데모_프로그램
             int b = int.Parse(tbox_blue.Text);
 
             cs.SetColor(r, g, b);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cs.ChangeColorEventHandler += Cs_ChangeColorEventHandler;
+        }
+
+        private void Cs_ChangeColorEventHandler(object sender, ChangeColorEventArgs e)
+        {
+            tbox_red.Text = e.Red.ToString();
+            tbox_green.Text = e.Green.ToString();
+            tbox_blue.Text = e.Blue.ToString();
         }
     }
 }
