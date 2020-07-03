@@ -16,5 +16,14 @@ namespace 데모_프로그램
         {
             InitializeComponent();
         }
+
+        private void btn_set_Click(object sender, EventArgs e)
+        {
+            int r = int.Parse(tbox_red.Text);
+            int g = int.Parse(tbox_green.Text);
+            int b = int.Parse(tbox_blue.Text);
+
+            cs.SetColor(r, g, b);
+        }
     }
 }
