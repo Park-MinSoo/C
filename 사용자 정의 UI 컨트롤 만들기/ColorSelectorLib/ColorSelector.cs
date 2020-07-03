@@ -13,6 +13,34 @@ namespace ColorSelectorLib
     public partial class ColorSelector: UserControl
     {
         public event ChangeColorEventHandler ChangeColorEventHandler = null;
+        public int Red
+        {
+            get
+            {
+                return tb_red.Value;
+            }
+        }
+        public int Green
+        {
+            get
+            {
+                return tb_green.Value;
+            }
+        }
+        public int Blue
+        {
+            get
+            {
+                return tb_blue.Value;
+            }
+        }
+        public Color Color
+        {
+            get 
+            {
+                return splitContainer1.Panel1.BackColor;
+            }
+        }
         public ColorSelector()
         {
             InitializeComponent();
