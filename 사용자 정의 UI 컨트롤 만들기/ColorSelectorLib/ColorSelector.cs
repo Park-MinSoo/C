@@ -12,6 +12,7 @@ namespace ColorSelectorLib
 {
     public partial class ColorSelector: UserControl
     {
+        public event ChangeColorEventHandler ChangeColorEventHandler = null;
         public ColorSelector()
         {
             InitializeComponent();
@@ -31,6 +32,10 @@ namespace ColorSelectorLib
             tbox_red.Text = r.ToString();
             tbox_green.Text = g.ToString();
             tbox_blue.Text = b.ToString();
+            if(ChangeColorEventHandler != null)
+            {
+                ChangeColorEventHandler(this, new ChangeColorEventArgs(r, g, b));
+            }
         }
 
         private void tb_green_Scroll(object sender, EventArgs e)
